@@ -1,0 +1,20 @@
+name: Run Minecraft Bot 24/7
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Makes it run every 15 minutes to stay awake
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest  # Uses GitHub’s free server
+    steps:
+      - name: Get bot code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Use Node 16 (works with your bot)
+      - name: Install bot stuff
+        run: npm install  # Gets mineflayer, prismarine-viewer, etc.
+      - name: Start bot
+        run: node index.js  # Runs your bot’s main file
