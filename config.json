@@ -1,5 +1,8 @@
 {
-	"ip":"Testing09.aternos.me",
-	"port": "25565",
-	"name": "afkbot"
+ "ip": "bani-koses.aternos.me",
+ "port": "42544",
+ "name": "FlackoBOT",  
+ "auto-night-skip": "false",
+ "loginmsg": "FlackoBOT Has Joined"
 }
+
