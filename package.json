@@ -10,9 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.3",
-    "fs": "0.0.1-security",
-    "mineboty": "^1.0.7",
-    "mineflayer": "^2.40.0",
+    "fs": "^0.0.1-security",
+    "mineflayer": "^2.48.0",
     "prismarine-viewer": "^1.20.0"
   }
 }
