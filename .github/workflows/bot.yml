@@ -6,15 +6,34 @@ on:
 
 jobs:
   run-bot:
-    runs-on: ubuntu-latest  # Uses GitHub’s free server
+    runs-on: ubuntu-latest  # Uses GitHub's free server
     steps:
       - name: Get bot code
         uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'  # Use Node 16 (works with your bot)
-      - name: Install bot stuff
-        run: npm install  # Gets mineflayer, prismarine-viewer, etc.
+
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install bot dependencies
+        run: npm ci  # Use npm ci for faster, deterministic installs based on package-lock.json
+
+      - name: Check for errors in dependencies
+        run: npm ls  # Verify dependencies are installed correctly
+
       - name: Start bot
-        run: node index.js  # Runs your bot’s main file
+        run: node index.js  # Runs your bot's script
+        continue-on-error: true  # Optional: Let the workflow continue if the bot crashes
+
+      - name: Log bot output
+        if: always()
+        run: cat bot.log || echo "No log file found"  # Optional: Log output if your bot writes to a file
